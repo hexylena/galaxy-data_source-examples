@@ -5,7 +5,7 @@ import urlparse
 import json
 
 HEAD = "<html><head><title>Async Galaxy Test</title></head><body>"
-TAIL = "</body></html>"
+TAIL = "</body></html>OK"
 
 @app.route("/")
 def hello():
