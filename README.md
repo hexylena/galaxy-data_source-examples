@@ -24,3 +24,10 @@ Running the example:
 3. `python async.py`
 4. Use the tool in Galaxy
 5. `python async_finish.py`
+
+
+# Notes
+
+- http://dev.list.galaxyproject.org/tool-type-quot-data-source-async-quot-td4260262.html
+- http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3092608/
+- https://wiki.galaxyproject.org/Admin/Internals/DataSources
