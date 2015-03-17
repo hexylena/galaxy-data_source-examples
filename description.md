@@ -1,6 +1,12 @@
-__Overview__
+##Overview
+
 This is a small example for the interaction of Galaxy with an external data source. 
 
 As the external source I chose CherryPy which is a python module for a minimalistic web server. CherryPy takes away some of the work which would be needed starting from SimpleHTTPServer.
 
-__1. Galaxy to CherryPy__
+#1. Galaxy to CherryPy
+In Galaxy the external data source is implemented as a tool with a specific type, namely: *data_source*. A lot of information on data sources can be found on the [Galaxy help pages](https://wiki.galaxyproject.org/Admin/Internals/DataSources).
+The main two parameters which are sent from Galaxy to the external data source (EDS) are the *sendToGalaxy* and the *GALAXY_URL* parameters. If *sendToGalaxy* has the value 1 then that should tell the EDS that the incoming traffic is to be sent to a Galaxy instance and not to a normal user. The value of *GALAXY_URL* tells the EDS where to send the result. On the Galaxy side these parameters are set by the tool automatically. 
+
+#2.
+
