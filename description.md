@@ -13,6 +13,7 @@ As you can see in the example (cherrypy.xml) the tool goes to the url http://loc
 
 ###2. CherryPy to Galaxy
 The idea is that the server now provides a form specifically for use within Galaxy. This can be an adapted version of a form provided on the website, it just needs to send the result to Galaxy and add some special parameters. If the results have to be calculated or if providing the results takes some time there is a way to make Galaxy idle and query a specific URL until the results are finished (I didn't test this yet).
+
 1. The cherrypy server getdata function distinguishes between a query coming from a "normal" user and a Galaxy instance.  
 2. It provides a form where the action points towards the GALAXY_URL and should have a few (hidden) parameters set
   1. non-hidden length parameter (Galaxy will put this parameter in the final query see point 3)
