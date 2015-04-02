@@ -31,7 +31,9 @@ Galaxy will then send the final query back to the CherryPy server. It queries th
 
 ##Asynchronous Communication
 
-There are some differences to the synchronous communication. In step 2 Galaxy does not care about the URL parameter, it will send another GET to the same URL as before.
+There are some differences to the synchronous communication. 
+
+In step 2 Galaxy does not care about the URL parameter, it will send another GET to the same URL as before.
 
 Like in step 3 the Galaxy server will contact the CherryPy server again only this time the GALAXY_URL is different and the parameter data_id is added. It expects the server to answer with a message that ends in "OK". The server should remember this new GALAXY_URL and start the process of retrieving the data.
 
