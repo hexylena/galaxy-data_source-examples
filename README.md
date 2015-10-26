@@ -7,7 +7,7 @@ This repository provides a couple different implementations, based on your needs
 
 - [CherryPy](./cherrypy)
 - [Flask](./flask)
-- [Django]()
+- [Django](https://github.com/erasche/django-galaxydatasource)
 
 # Authors
 
