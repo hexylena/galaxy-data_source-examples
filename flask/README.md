@@ -8,10 +8,11 @@ For these data source types, simply requesting a specific URL will provide/gener
 
 Running the example:
 
-1. Install `sync.xml` into your Galaxy toolbox
-2. `pip install flask`
-3. `python sync.py`
-4. Use the tool in Galaxy
+1. Copy `sync.xml` to `$GALAXY_ROOT/tools/data_source/`
+2. Add it to your `$GALAXY_ROOT/config/tool_conf.xml`
+3. `pip install flask`
+4. `python sync.py`
+5. Use the tool in Galaxy
 
 # Asynchronous Data Sources
 
@@ -19,11 +20,12 @@ For these, the data must be generated in the background, and Galaxy must be noti
 
 Running the example:
 
-1. Install `async.xml` into your Galaxy toolbox
-2. `pip install flask`
-3. `python async.py`
-4. Use the tool in Galaxy
-5. `python async_finish.py`
+1. Copy `async.xml` to `$GALAXY_ROOT/tools/data_source/`
+2. Add it to your `$GALAXY_ROOT/config/tool_conf.xml`
+3. `pip install flask`
+4. `python async.py`
+5. Use the tool in Galaxy
+6. `python async_finish.py`
 
 
 # Notes
