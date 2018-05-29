@@ -1,7 +1,9 @@
+from future import standard_library
+standard_library.install_aliases()
 from flask import Flask, request, redirect
 app = Flask(__name__)
-import urllib
-import urlparse
+import urllib.request, urllib.parse, urllib.error
+import urllib.parse
 
 HEAD = "<html><head><title>Sync Galaxy Test</title></head><body>"
 TAIL = "</body></html>"
@@ -22,7 +24,7 @@ def hello():
     """
 
     # Normally we would store this in their session data
-    gx_url = urllib.urlencode({'gx_url': request.args['GALAXY_URL']})
+    gx_url = urllib.parse.urlencode({'gx_url': request.args['GALAXY_URL']})
     # However we aren't developing a big application, so we simply pass it in the URL
     export_url = '/export/?' + gx_url
     # export_url is where the "fun" will happen.
@@ -78,11 +80,11 @@ def export():
 
 
     # Found on the web, update an existing URL with possible additional parameters
-    url_parts = list(urlparse.urlparse(return_to_galaxy))
-    query = dict(urlparse.parse_qsl(url_parts[4]))
+    url_parts = list(urllib.parse.urlparse(return_to_galaxy))
+    query = dict(urllib.parse.parse_qsl(url_parts[4]))
     query.update(params)
-    url_parts[4] = urllib.urlencode(query)
-    redir = urlparse.urlunparse(url_parts)
+    url_parts[4] = urllib.parse.urlencode(query)
+    redir = urllib.parse.urlunparse(url_parts)
 
 
     # Then redirect the user to Galaxy

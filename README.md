@@ -12,7 +12,7 @@ This repository provides a couple different implementations, based on your needs
 # Authors
 
 - Torsten Houwaart
-- Eric Rasche
+- Helena Rasche
 
 # Notes
 
