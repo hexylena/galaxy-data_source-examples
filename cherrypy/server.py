@@ -26,7 +26,7 @@ class StringGenerator(object):
     @cherrypy.expose
     def getdata(self, sendToGalaxy=0, GALAXY_URL="", hgta_compressType="none", tool_id="none", hgta_outputType="tabular"):
         if int(sendToGalaxy) == 1:
-            print "Tool_id: " + tool_id
+            print("Tool_id: " + tool_id)
             returnString= """<html>
                       <head></head>
                       <body>
