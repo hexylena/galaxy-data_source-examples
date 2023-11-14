@@ -1,10 +1,12 @@
 #!/usr/bin/env python
-import requests
+import os
 import random
 import string
 import urllib
 from argparse import ArgumentParser
 from time import sleep
+
+import requests
 
 parser = ArgumentParser()
 parser.add_argument("-g", "--galaxyurl", required=True)
@@ -20,6 +22,13 @@ data="".join(random.sample(string.hexdigits, int(args.length)))
 with open("workfile.tmp",'w+') as f:
     f.write(data)
 # Note that the handler is "download" which is defined in the CherryPy file
-ans = requests.get(args.galaxyurl, params={"STATUS":"OK", "URL":"http://localhost:8090/download?filepath=/home/thouwaar/Projects/datasources/CherryPy/workfile.tmp"})
+ans = requests.get(
+    args.galaxyurl,
+    params={
+        "STATUS":"OK",
+        "URL":"http://localhost:8090/download?filepath=%s" % os.path.abspath(
+            f.name
+        )
+    }
+)
 
-#print ans.text
