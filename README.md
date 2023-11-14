@@ -16,6 +16,6 @@ This repository provides a couple different implementations, based on your needs
 
 # Notes
 
-- http://dev.list.galaxyproject.org/tool-type-quot-data-source-async-quot-td4260262.html
+- https://lists.galaxyproject.org/archives/list/galaxy-dev@lists.galaxyproject.org/thread/OX5FUMBNE5KIAJ2DSE2T4DDNFPEVW2RR/
 - http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3092608/
-- https://wiki.galaxyproject.org/Admin/Internals/DataSources
+- https://galaxyproject.org/admin/internals/data-sources/
