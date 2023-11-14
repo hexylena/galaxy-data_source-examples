@@ -1,11 +1,13 @@
 from flask import Flask, request, redirect
+
 app = Flask(__name__)
-import urllib
-import urlparse
+import urllib.request, urllib.parse, urllib.error
+import urllib.parse
 import json
 
 HEAD = "<html><head><title>Async Galaxy Test</title></head><body>"
 TAIL = "</body></html>OK"
+
 
 @app.route("/")
 def hello():
@@ -22,23 +24,35 @@ def hello():
     it would if the request would have not originated from Galaxy
     """
 
-    if 'GALAXY_URL' not in request.args:
-        return HEAD + "<h1>Please come here via Galaxy</h1><p>The GALAXY_URL query parameter MUST be set for this to function</p>" + TAIL
+    if "GALAXY_URL" not in request.args:
+        return (
+            HEAD
+            + "<h1>Please come here via Galaxy</h1><p>The GALAXY_URL query parameter MUST be set for this to function</p>"
+            + TAIL
+        )
 
     # Normally we would store this in their session data
-    gx_url = urllib.urlencode({'gx_url': request.args['GALAXY_URL']})
+    gx_url = urllib.parse.urlencode({"gx_url": request.args["GALAXY_URL"]})
     # However we aren't developing a big application, so we simply pass it in the URL
-    export_url = '/export/?' + gx_url
+    export_url = "/export/?" + gx_url
     # export_url is where the "fun" will happen.
-    return HEAD + "<h1>Galaxy Async Data Source Test</h1>" + '<a href="' + export_url + '">Export Data</a>' + get_request_params() + TAIL
+    return (
+        HEAD
+        + "<h1>Galaxy Async Data Source Test</h1>"
+        + '<a href="'
+        + export_url
+        + '">Export Data</a>'
+        + get_request_params()
+        + TAIL
+    )
 
 
 def get_request_params():
     """Simply function to display request arguments as a table."""
-    result = '<table border=1><thead><tr><th>Key</th><th>Value</th></tr><tbody>'
+    result = "<table border=1><thead><tr><th>Key</th><th>Value</th></tr><tbody>"
     for key in request.args:
-        result += '<tr><td>%s</td><td>%s</td></tr>' % (key, request.args[key])
-    return result + '</tbody></table>'
+        result += "<tr><td>%s</td><td>%s</td></tr>" % (key, request.args[key])
+    return result + "</tbody></table>"
 
 
 @app.route("/data/<filename>")
@@ -100,17 +114,16 @@ def fetch():
         Data will be retrieved
         OK
     """
-    response = ['received parameters:']
+    response = ["received parameters:"]
     for key in request.args:
-        response.append('%s=%s' % (key, request.args[key]))
-    response += ['running query in the background', 'closing connection', 'OK']
-    data = {
-            'galaxy': request.args['GALAXY_URL']
-            }
-    with open('out.json', 'w') as handle:
+        response.append("%s=%s" % (key, request.args[key]))
+    response += ["running query in the background", "closing connection", "OK"]
+    data = {"galaxy": request.args["GALAXY_URL"]}
+    with open("out.json", "w") as handle:
         handle.write(json.dumps(data))
     # At this point the user should run the tool "async_finish.py"
-    return '\n'.join(response)
+    return "\n".join(response)
+
 
 @app.route("/export/")
 def export():
@@ -124,32 +137,31 @@ def export():
     """
 
     # Extract the Galaxy URL to redirect the user to from the parameters (or any other suitable source like session data)
-    return_to_galaxy = request.args['gx_url']
+    return_to_galaxy = request.args["gx_url"]
     # Construct the URL to fetch data from. That page should respond with the
     # entire content that you wish to go into a dataset (no
     # partials/paginated/javascript/etc)
-    fetch_url = 'http://localhost:4001/fetch/?var=1&b=23'
+    fetch_url = "http://localhost:4001/fetch/?var=1&b=23"
     # Must provide some parameters to Galaxy
     params = {
-            'URL': fetch_url,
-            # You can set the dataset type, should be a Galaxy datatype name
-            'type': 'tabular',
-            # And the output filename
-            'name': 'AsyncDataset Name',
-            }
-
+        "URL": fetch_url,
+        # You can set the dataset type, should be a Galaxy datatype name
+        "type": "tabular",
+        # And the output filename
+        "name": "AsyncDataset Name",
+    }
 
     # Found on the web, update an existing URL with possible additional parameters
-    url_parts = list(urlparse.urlparse(return_to_galaxy))
-    query = dict(urlparse.parse_qsl(url_parts[4]))
+    url_parts = list(urllib.parse.urlparse(return_to_galaxy))
+    query = dict(urllib.parse.parse_qsl(url_parts[4]))
     query.update(params)
-    url_parts[4] = urllib.urlencode(query)
-    redir = urlparse.urlunparse(url_parts)
-
+    url_parts[4] = urllib.parse.urlencode(query)
+    redir = urllib.parse.urlunparse(url_parts)
 
     # Then redirect the user to Galaxy
     return redirect(redir, code=302)
     # Galaxy will subsequently make a request to `fetch_url`
 
+
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=4001, debug=True)
+    app.run(host="0.0.0.0", port=4001, debug=True)
