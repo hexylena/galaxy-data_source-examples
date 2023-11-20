@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<tool name="DataSource Test Async" id="ds_test_async" tool_type="data_source_async" version="1.0.1">
+<tool name="DataSource Test Async" id="ds_test_async" tool_type="data_source_async" version="1.0.2" profile="21.09">
 	<description>Test Async</description>
-    <command interpreter="python">
-        data_source.py $output $__app__.config.output_size_limit
-    </command>
+    <command><![CDATA[
+        python '$__tool_directory__/data_source.py' '$output' $__app__.config.output_size_limit
+    ]]></command>
     <inputs action="http://localhost:4001/" check_values="false" method="get" target="_top">
 		<display>go to Async Datasource $GALAXY_URL</display>
     </inputs>
@@ -12,7 +12,7 @@
         <request_param galaxy_name="URL_method" remote_name="URL_method" missing="get" />
     </request_param_translation>
 	<uihints minwidth="800"/>
-	<outputs>
+	<outputs provided_metadata_style="legacy">
 		<data name="output" format="tabular" />
 	</outputs>
 	<options sanitize="False" refresh="True"/>
