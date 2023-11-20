@@ -4,9 +4,11 @@
     the initial response.  If value of 'URL_method' is 'post', any additional params coming back in the
     initial response ( in addition to 'URL' ) will be encoded and appended to URL and a post will be performed.
 -->
-<tool name="Cherry Py Async" id="cherrypy_async" tool_type="data_source">
+<tool name="Cherry Py Async" id="cherrypy_async" tool_type="data_source_async" version="1.0.0" profile="21.09">
     <description>test</description>
-    <command interpreter="python">data_source.py $output $__app__.config.output_size_limit</command>
+    <command><![CDATA[
+        python '$__tool_directory__/data_source.py' '$output' $__app__.config.output_size_limit
+    ]]></command>
     <inputs action="http://localhost:8090/getdata_async" check_values="false" method="get">
         <display>go to cherrypy server $GALAXY_URL</display>
         <param name="GALAXY_URL" type="baseurl" value="/async/cherrypy_async" />
@@ -23,7 +25,7 @@
         </request_param>
     </request_param_translation>
     <uihints minwidth="800"/>
-    <outputs>
+    <outputs provided_metadata_style="legacy">
         <data name="output" format="tabular" label="${tool.name}"/>
     </outputs>
     <options sanitize="False" refresh="True"/>
